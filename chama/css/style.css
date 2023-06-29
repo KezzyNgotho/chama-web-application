@@ -705,7 +705,7 @@ li {
 	--light-yellow: #FFF2C6;
 	--orange: #FD7238;
 	--light-orange: #FFE0D3;
-    --black:#00000000;
+  
 }
 
 html {
@@ -715,7 +715,7 @@ html {
 body.dark {
 	--light: #0C0C1E;
 	--grey: #060714;
-	--dark: black;
+	--dark:  #342E37;
 }
 
 body {
@@ -753,7 +753,7 @@ body {
 	height: 56px;
 	display: flex;
 	align-items: center;
-	color: var(--black);
+	color: var(--blue);
 	position: sticky;
 	top: 0;
 	left: 0;
@@ -920,7 +920,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: var(--black);
+	background: var(--blue);
 	color: var(--light);
 	font-size: 18px;
 	border: none;
@@ -1184,6 +1184,7 @@ body {
 	cursor: pointer;
 }
 #content main .table-data .todo .todo-list li.completed {
+
 	border-left: 10px solid var(--black);
 }
 #content main .table-data .todo .todo-list li.not-completed {
@@ -1192,7 +1193,7 @@ body {
 #content main .table-data .todo .todo-list li:last-child {
 	margin-bottom: 0;
 }
-/* MAIN */
+/* mainnn*/
 /* CONTENT */
 
 
