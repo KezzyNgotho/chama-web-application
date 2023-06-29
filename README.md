@@ -1,13 +1,13 @@
 # cham
-##Chama Web Application
+## Chama Web Application
 Welcome to the Chama Web Application! This powerful platform is designed to revolutionize your Chama experience, providing seamless financial management and fostering a thriving community.
 
-###Features
+### Features
 Secure Account Management: Safely manage your Chama account with robust security measures and user authentication to protect your sensitive information.
 
-Member Dashboard: Access a personalized dashboard that provides an overview of your Chama's financial activities, contributions, and investment performance.
+. Member Dashboard: Access a personalized dashboard that provides an overview of your Chama's financial activities, contributions, and investment performance.
 
-Contribution Tracking: Easily track member contributions and view detailed transaction history to ensure transparency and accountability within the Chama.
+. Contribution Tracking: Easily track member contributions and view detailed transaction history to ensure transparency and accountability within the Chama.
 
 Investment Management: Efficiently manage Chama investments by tracking portfolios, analyzing performance, and monitoring growth opportunities.
 
