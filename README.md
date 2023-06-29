@@ -1,4 +1,4 @@
-# cham
+# chama
 ## Chama Web Application
 Welcome to the Chama Web Application! This powerful platform is designed to revolutionize your Chama experience, providing seamless financial management and fostering a thriving community.
 
