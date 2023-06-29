@@ -32,7 +32,7 @@ For any inquiries, feedback, or support requests, please contact our dedicated s
 ###### License
 This project is licensed under the MIT License - see the LICENSE file for more details.
 
-####### Acknowledgements
+######## Acknowledgements 
 We extend our gratitude to the open-source community for their contributions, as well as our dedicated development team for their efforts in bringing this Chama Web Application to life.
 
 Thank you for choosing the Chama Web Application. Let's embark on a journey of financial empowerment and success together!
