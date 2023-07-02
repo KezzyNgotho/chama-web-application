@@ -10,6 +10,9 @@
         "image-alt": "off"
       }
     ],
-    "disown-opener": "off"
+    "disown-opener": "off",
+    "button-type": "off",
+    "meta-viewport": "off",
+    "no-inline-styles": "off"
   }
 }
