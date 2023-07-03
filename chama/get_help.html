@@ -592,6 +592,41 @@ grid-template-columns: 1fr 1fr;
 grid-template-columns: 1fr 1fr 1fr;
 }
 }
+
+
+.help-section {
+    margin-top: 0px;
+    background-color:whitesmoke;
+  }
+
+  .help-section h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .help-section p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .help-section ul {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+  }
+
+  .help-section ul li {
+    margin-bottom: 5px;
+  }
+
+  .help-section a {
+    color: #007bff;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 10px;
+  }
   </style>
 </head>
 <body>
@@ -629,7 +664,7 @@ grid-template-columns: 1fr 1fr 1fr;
         <div class="user-name">John Doe</div>
       </div>
       <ul>
-        <li><a href="#">Dashboard</a></li>
+        <li><a href="deposit.html">Dashboard</a></li>
         <li><a href="#">Feedback</a></li>
         <li class="active"><a href="get_help.html">Get Help</a></li>
         <li><a href="#">about</a></li>
@@ -637,123 +672,35 @@ grid-template-columns: 1fr 1fr 1fr;
       </ul>
     </div>
 
-    <div class="dashboard" id="dashboard">
-     
-      <h2> Dashboard</h2>
-     
-    
-      <!-- Cards Section -->
-      <div class="cards-section">
-        <!-- User Profile Card -->
-        <div class="card1" style="grid-row: span 2;">
-              <div class="card-content profile-section">
-                <div class="user-profile">
-                  <img src="img/people.png" alt="User Profile">
-                </div>
-                <div class="user-name">
-                  John Doe
-                </div>
-              </div>
-              <div class="card-content button-section">
-                <button class="card-button">
-                  <h4>Description 1</h4>
-                 
-                </button>
-                <button class="card-button">
-                  <h4>Description 3</h4>
-                </button>
-                <button class="card-button">
-                  <h4>Description 4</h4>
-                </button>
-              </div>
-              
-            </div>
-        
-
-    
-        <!-- Card 2 -->
-        <div class="card2">
-          <div class="card-content section1">
-            <div class="card-icons">
-              <img src="img/icons8-calender-64.png" alt="User Profile">
-            </div>
-          </div>
-          <div class="card-content section2">
-          
-            <p>Meetings</p>
-            <p1>Next:</p1>
-          </div>
-        </div>
-        
-        <!-- Card 3 -->
-        <div class="card3">
-          <div class="card-content section1">
-            <div class="card-icons">
-              <img src="img/icons8-welfare-50.png" alt="User Profile">
-            </div>
-          </div>
-          <div class="card-content section2">
-       
-            <p>welfare</p>
-            <p1>Next:</p1>
-          </div>
-        </div>
-    
-        <!-- Card 4 -->
-        <div class="card4">
-          <div class="card-content section1">
-            <div class="card-icons">
-              <img src="img/icons8-goals-64.png" alt="User Profile">
-            </div>
-          </div>
-          <div class="card-content section2">
-         
-            <p>Goals</p>
-            <p1>Next:</p1>
-          </div>
-        </div>
-    
-        <!-- Card 5 -->
-        <div class="card5">
-          <div class="card-content section1">
-            <div class="card-icons">
-              <img src="img/icons8-cubes-64.png" alt="User Profile">
-            </div>
-          </div>
-          <div class="card-content section2">
-           
-            <p>Loans</p>
-            <p1>Next:</p1>
-          </div>
-        </div>
-    
-        <!-- Card 6 -->
-        <div class="card6">
-          <div class="card-content section1">
-            <div class="card-icons">
-              <img src="img/icons8-cube-50.png" alt="User Profile">
-            </div>
-          </div>
-          <div class="card-content section2">
-          
-            <p>soft loans</p>
-            <p1>Pending:</p1>
-          </div>
-        </div>
-    
-        <!-- Card 7 -->
-        <div class="card7">
-          <div class="card-content section1">
-            <div class="card-icons">
-              <img src="img/icons8-merry-pie-50.png" alt="User Profile">
-            </div>
-          </div>
-          <div class="card-content section2">
-       
-            <p>Merry go round</p>
-            <p1>Next:0</p1>
-          </div>
-        </div>
+    <div class="help-section">
+        <h2>Get Help</h2>
+        <p>
+          Welcome to the "Get Help" page. If you have any questions or need assistance,
+          please feel free to contact our support team or refer to the resources below:
+        </p>
+        <h3>Contact Support</h3>
+        <p>
+          For immediate assistance, you can contact our support team via email or phone:
+        </p>
+        <ul>
+          <li>Email: support@example.com</li>
+          <li>Phone: +1 (123) 456-7890</li>
+        </ul>
+        <h3>Frequently Asked Questions</h3>
+        <p>
+          Check our frequently asked questions (FAQ) section to find answers to common queries.
+        </p>
+        <a href="#">View FAQs</a>
+        <h3>Documentation</h3>
+        <p>
+          Visit our documentation section to explore in-depth guides and tutorials on how to use our services.
+        </p>
+        <a href="#">View Documentation</a>
+        <h3>Community Forum</h3>
+        <p>
+          Join our community forum to discuss topics, ask questions, and connect with other users.
+        </p>
+        <a href="#">Go to Forum</a>
       </div>
     </div>
         
@@ -771,3 +718,6 @@ grid-template-columns: 1fr 1fr 1fr;
   </script>
 </body>
 </html>
+
+
+
