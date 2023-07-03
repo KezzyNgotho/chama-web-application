@@ -549,7 +549,7 @@
       color:black;
       font-weight: bold;
       font-size: 14px;
-     margin-bottom: 100px;
+     margin-bottom: 40px;
     }
 
     @media (max-width: 768px) {
@@ -557,6 +557,30 @@
         grid-template-columns: 1fr;
       }
     }
+    /* For screens smaller than 600px */
+@media (max-width: 600px) {
+  /* Adjust the layout for smaller screens */
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* For screens between 601px and 1024px */
+@media (min-width: 601px) and (max-width: 1024px) {
+  /* Adjust the layout for medium-sized screens */
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* For screens larger than 1024px */
+@media (min-width: 1025px) {
+  /* Reset the layout for larger screens */
+  .container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -645,7 +669,7 @@
             </div>
           </div>
           <div class="card-content section2">
-            <h3>Card 2</h3>
+          
             <p>Meetings</p>
             <p1>Next:</p1>
           </div>
@@ -659,7 +683,7 @@
             </div>
           </div>
           <div class="card-content section2">
-            <h3>Card 2</h3>
+       
             <p>welfare</p>
             <p1>Next:</p1>
           </div>
@@ -673,7 +697,7 @@
             </div>
           </div>
           <div class="card-content section2">
-            <h3>Card 2</h3>
+         
             <p>Goals</p>
             <p1>Next:</p1>
           </div>
@@ -687,7 +711,7 @@
             </div>
           </div>
           <div class="card-content section2">
-            <h3>Card 2</h3>
+           
             <p>Loans</p>
             <p1>Next:</p1>
           </div>
@@ -701,7 +725,7 @@
             </div>
           </div>
           <div class="card-content section2">
-            <h3>Card 2</h3>
+          
             <p>soft loans</p>
             <p1>Pending:</p1>
           </div>
@@ -715,7 +739,7 @@
             </div>
           </div>
           <div class="card-content section2">
-            <h3>Merry go round</h3>
+       
             <p>Merry go round</p>
             <p1>Next:0</p1>
           </div>
