@@ -8,7 +8,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: darkcyan;
+      background-color: #1B6B93;
       padding: 10px;
     }
 
@@ -253,7 +253,19 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: box-shadow 0.3s;
+  display: inline-block;
+ 
+  border: 1px solid #ccc;
+ 
+  text-decoration: none;
+  color: #333;
 }
+
+
+.card1 .button:hover {
+  background-color: #f2f2f2;
+}
+
 
 .card1 .card-button h4 {
   margin-bottom: 5px;
@@ -656,18 +668,21 @@ grid-template-columns: 1fr 1fr 1fr;
                 </div>
               </div>
             </a>
-              <div class="card-content button-section">
-                <button class="card-button">
-                  <h4>Description 1</h4>
-                 
-                </button>
-                <button class="card-button">
-                  <h4>Description 3</h4>
-                </button>
-                <button class="card-button">
-                  <h4>Description 4</h4>
-                </button>
-              </div>
+            <div class="card-content button-section">
+              <a class="card-button" href="chamas.html">
+                <h4>Chamas</h4>
+                <p>:0</p>
+              </a>
+              <a class="card-button" href="#">
+                <h4>Requests</h4>
+                <p>:0</p>
+              </a>
+              <a class="card-button" href="#">
+                <h4>Shares</h4>
+                <p>:0</p>
+              </a>
+            </div>
+            
               
             </div>
         
