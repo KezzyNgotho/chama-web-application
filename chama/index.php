@@ -1,3 +1,22 @@
+<?php
+$servername = "sql205.infinityfree.com"; // Replace with your MySQL server name
+$username = "if0_34576153"; // Replace with your MySQL username
+$password = "O2p634SC8vzOn"; // Replace with your MySQL password
+$database = "if0_34576153_kezzy_chama"; // Replace with your MySQL database name
+
+// Create a connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+echo "Connected successfully";
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,9 +111,9 @@
                         <a href="404.html" class="dropdown-item">404 Page</a>
                     </div>
                 </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                <a href="login.html" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="signup.html" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get Started<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="signup.php" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get Started<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -658,4 +677,4 @@
     <script src="js/main.js"></script>
 </body>
 
-</html>
+</html> 

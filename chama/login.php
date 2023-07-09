@@ -1,3 +1,62 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST["email"];
+    $password = $_POST['password'];
+
+    // Database configuration
+    $servername = "sql205.infinityfree.com";
+    $username = "if0_34576153";
+    $db_password = "O2p634SC8vzOn";
+    $dbname = "if0_34576153_kezzy_chama";
+
+    // Create a database connection
+    $conn = new mysqli($servername, $username, $db_password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Prepare the SQL statement
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // User exists
+        $row = $result->fetch_assoc();
+        $storedPassword = $row['password'];
+        if (password_verify($password, $storedPassword)) {
+            // Password matches
+            header("Location: deposit.php");
+            exit;
+        } else {
+            // Invalid password
+            echo "<script>alert('Invalid password!');</script>";
+        }
+    } else {
+        // User does not exist
+        echo "<script>alert('Email does not exist!');</script>";
+    }
+
+    $stmt->close();
+
+    // Close the database connection
+    $conn->close();
+}
+?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -125,12 +184,13 @@
                     <div class="login-form">
                         <h4 class="login-title">LOGIN</h4>
                         <div class="row">
-                            <form id="contactForm" method="POST" action="deposit.html" class="log-form">
+                        <form id="contactForm" method="POST" action="login.php" class="log-form">
+
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <input type="text" id="name" class="form-control" placeholder="Username" required data-error="Please enter your name">
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" required data-error="Please enter your email">
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <input type="password" id="msg_subject" class="form-control" placeholder="Password" required data-error="Please enter your message subject">
+                                <input type="password" name="password" id="msg_subject" class="form-control" placeholder="Password" required data-error="Please enter your password">
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="check-group flexbox">
@@ -143,7 +203,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <button type="submit" id="submit" class="login-btn">    <a href="deposit.html"> Login</a></button>
+                                    <button type="submit" id="submit" class="login-btn">    <a href="deposit.php"> Login</a></button>
                                     <div id="msgSubmit" class="h3 text-center hidden"></div> 
                                     <div class="clearfix"></div>
                                 </div>
@@ -156,7 +216,7 @@
                                             <li><a class="twitter" href="#">twitter</a></li>
                                             <li><a class="google" href="#">google+</a></li>
                                         </ul>
-                                        <div class="acc-not">Don't have an account  <a href="signup.html"> Sign up</a></div>
+                                        <div class="acc-not">Don't have an account  <a href="signup.php"> Sign up</a></div>
                                     </div> 
                                 </div> 
                             </form> 

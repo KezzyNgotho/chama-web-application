@@ -1,3 +1,64 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Database configuration
+$servername = "sql205.infinityfree.com";
+$username = "if0_34576153";
+$password = "O2p634SC8vzOn";
+$dbname = "if0_34576153_kezzy_chama";
+
+// Create a database connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// ...
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $username = $_POST["username"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    // Check if the email already exists in the database
+    $checkEmailQuery = "SELECT * FROM users WHERE email = '$email'";
+    $checkEmailResult = $conn->query($checkEmailQuery);
+
+    if ($checkEmailResult->num_rows > 0) {
+        // Email already exists
+        echo "<script>alert('Email already exists!'); window.location.href = 'signup.php';</script>";
+        exit;
+    } else {
+        // Insert data into the database
+        $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
+        if ($conn->query($sql) === true) {
+            // Registration successful
+            echo "<script>alert('Registration successful!'); window.location.href = 'login.php';</script>";
+            exit;
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+
+// ...
+
+
+// Close the database connection
+$conn->close();
+?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,7 +156,7 @@
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="login.html" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="login.php" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -125,15 +186,17 @@
                     <div class="login-form signup-form">
                         <h4 class="login-title ">REGISTER</h4>
                         <div class="row">
-                            <form id="contactForm" method="POST" action="login.html" class="log-form">
+                        <form id="contactForm" method="POST" action="signup.php" class="log-form">
+
+
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <input type="text" id="name" class="form-control" placeholder="Username" required data-error="Please enter your name">
+                                <input type="text" name="username" id="name" class="form-control" placeholder="Username" required data-error="Please enter your name">
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <input type="email" id="email" class="form-control" placeholder="Your Email" required data-error="Please enter your name">
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" required data-error="Please enter your email">
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <input type="password" id="msg_subject" class="form-control" placeholder="Password" required data-error="Please enter your message subject">
+                                <input type="password" name="password" id="msg_subject" class="form-control" placeholder="Password" required data-error="Please enter your password">
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 ">
                                     <div class="check-group flexbox">
@@ -157,7 +220,7 @@
                                             <li><a class="twitter" href="#">twitter</a></li>
                                             <li><a class="google" href="#">google+</a></li>
                                         </ul>
-                                        <div class="acc-not">have an account?  <a href="login.html">Login</a></div>
+                                        <div class="acc-not">have an account?  <a href="login.php">Login</a></div>
                                     </div>
                                 </div>
                             </form> 
