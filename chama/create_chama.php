@@ -1,3 +1,81 @@
+<?php
+session_start();
+// Check if the user is logged in
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Database configuration
+$servername = "sql205.infinityfree.com";
+$username = "if0_34576153";
+$db_password = "O2p634SC8vzOn";
+$dbname = "if0_34576153_kezzy_chama";
+
+// Create a database connection
+$conn = new mysqli($servername, $username, $db_password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the submitted form data
+    $chamaName = $_POST["chama_name"];
+    $chamaBio = $_POST["chama_bio"];
+    $user_email = $_SESSION['user_email'];
+
+    // Prepare the SQL statement to insert data into the "chama" table
+    $sql = "INSERT INTO chama (name, bio, user_email) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt === false) {
+        // Display the error message
+        die("Prepare failed: " . $conn->error);
+    }
+
+    // Bind the parameters and execute the statement
+    $stmt->bind_param("sss", $chamaName, $chamaBio, $user_email);
+    if ($stmt->execute()) {
+        // Insertion successful
+        $message = "Chama created successfully";
+    } else {
+        // Insertion failed
+        die("Error creating chama: " . $stmt->error);
+    }
+
+    // Close the prepared statement
+    $stmt->close();
+}
+
+
+$user_email = $_SESSION['user_email'];
+
+$query = "SELECT first_name, surname FROM accounts WHERE email = '$user_email'";
+$result = $conn->query($query);
+
+// Check if the query was successful
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $firstName = $row['first_name'];
+    $surname = $row['surname'];
+} else {
+    $firstName = 'N/A';
+    $surname = 'N/A';
+}
+
+// Close the database connection
+$conn->close();
+?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -227,7 +305,8 @@
     <div class="user-profile">
       <img src="img/people.png" alt="User Profile" />
     </div>
-    <div class="user-name">code cove</div>
+      
+    <div class="user-name"><?php echo $firstName . " " . $surname; ?></div>
   </div>
 </div>
 
@@ -237,12 +316,13 @@
         <div class="user-profile">
           <img src="img/people.png" alt="User Profile" />
         </div>
-        <div class="user-name">code cove</div>
+            
+        <div class="user-name"><?php echo $firstName . " " . $surname; ?></div>
       </div>
     <ul>
-        <li><a href="deposit.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-        <li><a href="get_feedback.html"><i class="fas fa-comments"></i> Feedback</a></li>
-        <li class="active"><a href="get_help.html"><i class="fas fa-question-circle"></i> Get Help</a></li>
+        <li><a href="deposit.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="get_feedback.php"><i class="fas fa-comments"></i> Feedback</a></li>
+        <li class="active"><a href="get_help.php"><i class="fas fa-question-circle"></i> Get Help</a></li>
         <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
         <li><a href="#"><i class="fas fa-file-contract"></i> Terms and Conditions</a></li>
     </ul>
@@ -269,6 +349,8 @@
           </div>
           
      
+        
+      <!-- Card elements -->
       <div class="card">
         <div class="upper-section">
           <div class="chama-name">Chama Details</div>
@@ -277,19 +359,21 @@
           </div>
         </div>
         <div class="middle-section">
-          <div class="chama-details">
-            <input type="text" placeholder="Chama Name" />
-            <textarea placeholder="Chama Bio"></textarea>
-          </div>
-        </div>
-        <div class="lower-section">
-          <button class="save-button">Save</button>
-          <button class="discard-button">Discard</button>
+          <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div class="chama-details">
+              <input type="text" name="chama_name" placeholder="Chama Name" />
+              <textarea name="chama_bio" placeholder="Chama Bio"></textarea>
+            </div>
+            <div class="lower-section">
+              <button type="submit" class="save-button">Save</button>
+              <button class="discard-button">Discard</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
 
 <script>
   const toggleSidebarBtn = document.querySelector('.toggle-sidebar-btn');

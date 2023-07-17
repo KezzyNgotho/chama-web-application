@@ -1,3 +1,49 @@
+<?php
+session_start();
+
+// Database configurati
+
+$servername = "sql205.infinityfree.com";
+$username = "if0_34576153";
+$db_password = "O2p634SC8vzOn";
+$dbname = "if0_34576153_kezzy_chama";
+// Create a database connection
+$conn = new mysqli($servername, $username, $db_password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch the number of chamas from the Chama table
+$query = 'SELECT COUNT(*) AS total_chamas FROM chama';
+$result = $conn->query($query);
+
+// Check if the query was successful
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $totalChamas = $row['total_chamas'];
+} else {
+    $totalChamas = 0;
+}
+$user_email = $_SESSION['user_email'];
+
+$query = "SELECT first_name, surname FROM accounts WHERE email = '$user_email'";
+$result = $conn->query($query);
+
+// Check if the query was successful
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $firstName = $row['first_name'];
+    $surname = $row['surname'];
+} else {
+    $firstName = 'N/A';
+    $surname = 'N/A';
+}
+
+// Close the database connection
+$conn->close();
+?>
 
 
 
@@ -99,6 +145,7 @@
 
     .sidebar li {
       margin-bottom: 10px;
+      margin: top 40px;
     }
 
     .sidebar li a {
@@ -580,6 +627,24 @@ font-size: 14px;
   font-size: 14px;
  margin-bottom: 40px;
 }
+/* CSS code */
+/* CSS code */
+.total-chamas {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+  margin-top: 10px;
+}
+
+footer {
+        background-color: white;
+        padding: 20px;
+        text-align: center;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+    }
 
 @media (max-width: 768px) {
   .cards-section {
@@ -628,9 +693,8 @@ grid-template-columns: 1fr 1fr 1fr;
       <div class="user-profile">
         <img src="img/people.png" alt="User Profile">
       </div>
-      <div class="user-name">
-        Code Cove
-      </div>
+     
+      <div class="user-name"><?php echo $firstName . " " . $surname; ?></div>
       <div class="notification-bell">
         <i class="fas fa-bell"></i>
       </div>
@@ -643,11 +707,12 @@ grid-template-columns: 1fr 1fr 1fr;
         <div class="user-profile">
           <img src="img/people.png" alt="User Profile">
         </div>
-        <div class="user-name">John Doe</div>
+      
+        <div class="user-name"><?php echo $firstName . " " . $surname; ?></div>
       </div>
       <ul>
-        <li><a href="deposit.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-        <li><a href="get_feedback.html"><i class="fas fa-comments"></i> Feedback</a></li>
+        <li><a href="deposit.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="get_feedback.php"><i class="fas fa-comments"></i> Feedback</a></li>
         <li class="active"><a href="get_help.html"><i class="fas fa-question-circle"></i> Get Help</a></li>
         <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
         <li><a href="#"><i class="fas fa-file-contract"></i> Terms and Conditions</a></li>
@@ -663,35 +728,31 @@ grid-template-columns: 1fr 1fr 1fr;
       <div class="cards-section">
         <!-- User Profile Card -->
         <div class="card1" style="grid-row: span 2;">
-        <a href="user_profile.html">
-              <div class="card-content profile-section">
-                <div class="user-profile">
-                  <img src="img/people.png" alt="User Profile">
-                </div>
-                <div class="user-name">
-                  John Doe
-                </div>
-              </div>
-            </a>
-            <div class="card-content button-section">
-              <a class="card-button" href="chamas.html">
-                <h4>Chamas</h4>
-                <p>:0</p>
-              </a>
-              <a class="card-button" href="#">
-                <h4>Requests</h4>
-                <p>:0</p>
-              </a>
-              <a class="card-button" href="#">
-                <h4>Shares</h4>
-                <p>:0</p>
-              </a>
-            </div>
-            
-              
-            </div>
-        
-
+  <a href="user_profile.php">
+    <div class="card-content profile-section">
+      <div class="user-profile">
+        <img src="img/people.png" alt="User Profile">
+      </div>
+    
+      <div class="user-name"><?php echo $firstName . " " . $surname; ?></div>
+    </div>
+  </a>
+  <div class="card-content button-section">
+  <a class="card-button" href="chamas.php">
+    <h4>Chamas</h4>
+    <h4 class="total-chamas"><?php echo $totalChamas; ?></h4>
+  </a>
+    <a class="card-button" href="#">
+      <h4>Requests</h4>
+     <h4>0.0</h4>
+    </a>
+    <a class="card-button" href="#">
+      <h4>Shares</h4>
+      <h4>0.00</h4>
+   
+    </a>
+  </div>
+</div>
     
         <!-- Card 2 -->
         <div class="card2">
@@ -779,7 +840,21 @@ grid-template-columns: 1fr 1fr 1fr;
       </div>
     </div>
         
-    
+
+<footer>
+        <!-- Footer content goes here -->
+        <div class="footer-content">
+
+    <div class="footer-social">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+  <div class="footer-text">
+    &copy; 2023 kezzy chama All rights reserved. | Designed by Kezzy Ngotho
+  </div>
+    </footer>
    
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
@@ -790,6 +865,9 @@ grid-template-columns: 1fr 1fr 1fr;
     toggleSidebarBtn.addEventListener('click', () => {
       sidebar.classList.toggle('hidden');
     });
+
+   
+
   </script>
 </body>
 </html>

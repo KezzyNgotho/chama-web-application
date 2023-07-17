@@ -1,3 +1,76 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Start the session
+session_start();
+
+// Assuming you have a database connection established
+// Replace the database credentials with your own
+$servername = "sql205.infinityfree.com";
+$username = "if0_34576153";
+$password = "O2p634SC8vzOn";
+$dbname = "if0_34576153_kezzy_chama";
+
+// Create a new database connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$chamaName = $_GET['chama_name'] ?? '';
+
+if (empty($chamaName)) {
+    die("Chama name not provided.");
+}
+
+$sql = "SELECT * FROM chama WHERE name = '$chamaName'";
+$result = $conn->query($sql);
+
+if ($result === false) {
+    die("Query execution failed: " . $conn->error);
+}
+
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $chamaId = $row['chama_id'];
+    /* $chamaDate = $row['date_created'];
+    $chamaNumber = $row['chama_number']; */
+    $chamaBio = $row['chama_bio'];
+
+    // Count the total members based on the user email
+    $user_email = $_SESSION['user_email'];
+    $memberCountQuery = "SELECT COUNT(*) AS total_members FROM accounts WHERE chama_id = '$chamaId' AND email = '$user_email'";
+    $memberCountResult = $conn->query($memberCountQuery);
+
+    if ($memberCountResult === false) {
+        die("Query execution failed: " . $conn->error);
+    }
+
+    if ($memberCountResult->num_rows > 0) {
+        $memberCountRow = $memberCountResult->fetch_assoc();
+        $memberCount = $memberCountRow['total_members'];
+    } else {
+        $memberCount = 0; // Default to 0 if no members found
+    }
+} else {
+    echo "Chama not found.";
+}
+
+// Close the database connection
+$conn->close();
+?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -246,37 +319,35 @@
         <div class="user-name">code cove</div>
       </div>
     <ul>
-      <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+      <li><a href="settings.php"><i class="fas fa-cog"></i> Settings</a></li>
       <li><a href="#"><i class="fas fa-users"></i> Members</a></li>
-      <li><a href="deposit.html"><i class="fas fa-tachometer-alt"></i>Home</a></li>
-      <li><a href="get_feedback.html"><i class="fas fa-comments"></i> Feedback</a></li>
-      <li class="active"><a href="get_help.html"><i class="fas fa-question-circle"></i> Get Help</a></li>
+      <li><a href="deposit.php"><i class="fas fa-tachometer-alt"></i>Home</a></li>
+      <li><a href="get_feedback.php"><i class="fas fa-comments"></i> Feedback</a></li>
+      <li class="active"><a href="get_help.php"><i class="fas fa-question-circle"></i> Get Help</a></li>
       <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
       <li><a href="#"><i class="fas fa-file-contract"></i> Terms and Conditions</a></li>
     </ul>
    
   </div>
-
+  
+   
   <div class="dashboard" id="dashboard">
     <h2>User Chamas</h2>
     <div class="cards-section">
-      <div class="card">
+      <div class="card" data-chama-id="<?php echo $chamaId; ?>">
         <div class="upper-section">
-          <div class="chama-name">Chama Name</div>
+          <div class="chama-name"><?php echo $chamaName; ?></div>
           <div class="organization-logo">
             <img src="img/icons8-business-64.png" alt="Organization Logo" />
           </div>
         </div>
         <div class="middle-section">
           <div class="chama-info">
-            <div class="chama-date">Date Created: June 1, 2023</div>
-            <div class="chama-last-updated">Last Updated: July 3, 2023</div>
-            <div class="chama-number">Chama Number: 12345</div>
+         
           </div>
         </div>
-        
       </div>
-      <div class="card1">
+      <div class="card1" data-chama-id="<?php echo $chamaId; ?>">
         <div class="upper-section">
           <div class="chama-name">Total Members</div>
           <div class="organization-logo">
@@ -285,27 +356,23 @@
         </div>
         <div class="middle-section">
           <div class="chama-info">
-            <div class="member-count">Number of Members: 50</div>
+            <div class="member-count">Number of Members: <?php echo $memberCount; ?></div>
           </div>
         </div>
-      
       </div>
-      <div class="card2">
+      <div class="card2" data-chama-id="<?php echo $chamaId; ?>">
         <div class="upper-section">
           <div class="chama-name">Chama Bio</div>
-          
         </div>
         <div class="middle-section">
           <div class="chama-info">
-            <div class="chama-bio">bio</div>
+            <div class="chama-bio"><?php echo $chamaBio; ?></div>
           </div>
         </div>
-       
       </div>
     </div>
   </div>
-  
-
+</div>
 <script>
   const toggleSidebarBtn = document.querySelector('.toggle-sidebar-btn');
   const sidebar = document.querySelector('.sidebar');
@@ -315,6 +382,7 @@
     sidebar.classList.toggle('hidden');
     dashboard.classList.toggle('sidebar-hidden');
   });
+ 
 </script>
 </body>
 </html>

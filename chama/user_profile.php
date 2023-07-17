@@ -1,3 +1,70 @@
+<?php
+session_start();
+
+// Database configurati
+
+$servername = "sql205.infinityfree.com";
+$username = "if0_34576153";
+$db_password = "O2p634SC8vzOn";
+$dbname = "if0_34576153_kezzy_chama";
+// Create a database connection
+$conn = new mysqli($servername, $username, $db_password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Retrieve the form data
+    $firstName = $_POST["firstName"];
+    $surname = $_POST["surname"];
+    $otherNames = $_POST["otherNames"];
+    $gender = $_POST["gender"];
+    $email = $_SESSION["user_email"];
+    $phoneNumber = $_POST["phoneNumber"];
+    $idNumber = $_POST["idNumber"];
+    $bio = $_POST["bio"];
+
+    // Prepare and bind the SQL statement
+    $stmt = $conn->prepare("INSERT INTO accounts (first_name, surname, other_names, gender, email, phone_number, id_number, bio) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssss", $firstName, $surname, $otherNames, $gender, $email, $phoneNumber, $idNumber, $bio);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        $notification = "Account details saved successfully!";
+    } else {
+        $notification = "Error: " . $stmt->error;
+    }
+
+    // Close the statement
+    $stmt->close();
+}
+
+// Fetch account details from the database
+$accountDetails = [];
+$sql = "SELECT * FROM accounts WHERE email = '{$_SESSION['user_email']}'";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    $accountDetails = $result->fetch_assoc();
+}
+
+// Close the connection
+$conn->close();
+
+// Initialize the form data with fetched account details
+$firstName = isset($accountDetails["first_name"]) ? $accountDetails["first_name"] : "";
+$surname = isset($accountDetails["surname"]) ? $accountDetails["surname"] : "";
+$otherNames = isset($accountDetails["other_names"]) ? $accountDetails["other_names"] : "";
+$gender = isset($accountDetails["gender"]) ? $accountDetails["gender"] : "";
+$email = isset($accountDetails["email"]) ? $accountDetails["email"] : "";
+$phoneNumber = isset($accountDetails["phone_number"]) ? $accountDetails["phone_number"] : "";
+$idNumber = isset($accountDetails["id_number"]) ? $accountDetails["id_number"] : "";
+$bio = isset($accountDetails["bio"]) ? $accountDetails["bio"] : "";
+?>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,7 +78,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #1B6B93;
+        background-color:  #1B6B93;
         padding: 10px;
       }
 
@@ -65,6 +132,7 @@
         background-color: white;
         color: black;
         padding: 20px;
+
         transition: transform 0.3s ease-in-out;
       }
 
@@ -77,6 +145,7 @@
         font-size: 20px;
         cursor: pointer;
         margin-bottom: 0;
+      
       }
 
       .sidebar ul {
@@ -87,6 +156,7 @@
 
       .sidebar li {
         margin-bottom: 10px;
+        margin-top:30px;
       }
 
       .sidebar li a {
@@ -158,9 +228,6 @@
         transition: background-color 0.3s ease;
       }
       
-      .card1 .section2-content:hover {
-        background-color: whitesmoke;
-      }
       
       .card1 .section2-content .icon {
         margin-right: 5px;
@@ -178,19 +245,7 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         margin-left: 20px;
         border-color: #1B6B93;
-        position: relative;
       }
-     
-      
-      .footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: #f2f2f2;
-        padding: 10px;
-      }
-      
 
 
       .card2 .top-bar {
@@ -227,7 +282,7 @@
         align-items: center; /* Center align the forms */
         margin-top: 0;
       
-        background-color:white;
+        background-color: white;
         border-radius: 1px;
       }
       
@@ -237,7 +292,7 @@
         justify-content: center; /* Center align the form fields */
        
         margin-right: 50px;
-        width: 600px; /* Increase the width of the form fields container */
+        width: 700px; /* Increase the width of the form fields container */
       }
       
       .card2 .form-row {
@@ -249,7 +304,7 @@
       .card2 .form-field {
         flex-grow: 1;
       
-        margin-left: 20px;
+        margin-left: 5px;
       }
       
       .card2 .form-field label {
@@ -260,7 +315,7 @@
       .card2 .form-field input,
       .card2 .form-field select,
       .card2 .form-field textarea {
-        width: 100%; /* Increase the width of the form fields */
+        width: 330px; /* Increase the width of the form fields */
         padding: 5px;
         border: 1px solid #ccc;
         border-radius: 1px;
@@ -268,16 +323,19 @@
       }
       
       .card2 .form-actions {
+       
         display: flex;
-        justify-content: flex-end;
+        justify-content:centre;
         margin-top: 10px;
+        
         
       
       }
       
       .card2 .form-actions button {
-        margin-left: 15px;
-        width:200px;
+        margin-left: 30px;
+        width:320px;
+        padding:10px;
       }
       
       
@@ -348,12 +406,23 @@
           grid-template-columns: 1fr 1fr 1fr;
         }
       }
+
+     
+
       .section2-content {
         display: flex;
         flex-direction: column;
         margin-top: 20px;
       }
-    
+      footer {
+        background-color: white;
+        padding: 10px;
+        text-align: center;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+    }
      
     </style>
   </head>
@@ -372,7 +441,7 @@
         <div class="user-profile">
           <img src="img/people.png" alt="User Profile" />
         </div>
-        <div class="user-name">Code Cove</div>
+        <div class="user-name"><?php echo $firstName . " " . $surname; ?></div>
         <div class="notification-bell">
           <i class="fas fa-bell"></i>
         </div>
@@ -384,14 +453,14 @@
           <div class="user-profile">
             <img src="img/people.png" alt="User Profile" />
           </div>
-          <div class="user-name">John Doe</div>
+          <div class="user-name"><?php echo $firstName . " " . $surname; ?></div>
         </div>
         <ul>
-            <li><a href="deposit.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-            <li><a href="get_feedback.html"><i class="fas fa-comments"></i> Feedback</a></li>
-            <li class="active"><a href="get_help.html"><i class="fas fa-question-circle"></i> Get Help</a></li>
-            <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
-            <li><a href="#"><i class="fas fa-file-contract"></i> Terms and Conditions</a></li>
+          <li><a href="deposit.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+  <li><a href="get_feedback.php"><i class="fas fa-comments"></i> Feedback</a></li>
+  <li class="active"><a href="get_help.php"><i class="fas fa-question-circle"></i> Get Help</a></li>
+  <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+  <li><a href="#"><i class="fas fa-file-contract"></i> Terms and Conditions</a></li>
         </ul>
       </div>
 
@@ -406,7 +475,7 @@
               <!-- Profile name and member number -->
               <div class="user-profile">
                 <img src="img/people.png" alt="User Profile" />
-                <div class="user-name">John Doe</div>
+                <div class="user-name"><?php echo $firstName . " " . $surname; ?></div>
               </div>
               <div class="member-number">Member Number: 123456</div>
             </div>
@@ -423,9 +492,9 @@
         <!-- Card 2: Account Credentials -->
 <div class="card2">
   <div class="top-bar">
-    <a class="user_profile.html" href="user_profile.html">Account</a>
-    <a class="credentials.html" href="credentials.html">Credentials</a>
-    <a class="navigation-link" href="timeline.html">Timeline</a>
+    <a class="user_profile.php" href="user_profile.php">Account</a>
+    <a class="credentials.php" href="credentials.php">Credentials</a>
+    <a class="navigation-link" href="timeline.php">Timeline</a>
   </div>
   <div class="section1">
     <div class="section1-content">
@@ -433,31 +502,84 @@
     </div>
   </div>
   <div class="section2">
-
-
-    
-    <div class="section2">
         <div class="section2-content">
-          <h3 id="account">Account Information</h3>
+          <h3 id="account">Account Details</h3>
           <div class="form-fields-container">
-            <div class="form-row">
-              <div class="form-field">
-                <label for="dateTime">Date and Time</label>
-                <input type="text" id="dateTime" name="dateTime" readonly>
+            <!-- Add the form submission action and method -->
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="firstName">First Name</label>
+                  <input type="text" id="firstName" name="firstName" value="<?php echo $firstName; ?>">
+                </div>
+                <div class="form-field">
+                  <label for="surname">Surname</label>
+                  <input type="text" id="surname" name="surname" value="<?php echo $surname; ?>">
+                </div>
               </div>
-              <div class="form-field">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" readonly>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="otherNames">Other Names</label>
+                  <input type="text" id="otherNames" name="otherNames" value="<?php echo $otherNames; ?>">
+                </div>
+                <div class="form-field">
+                  <label for="gender">Gender</label>
+                  <select id="gender" name="gender">
+                    <option value="male" <?php echo ($gender === "male") ? "selected" : ""; ?>>Male</option>
+                    <option value="female" <?php echo ($gender === "female") ? "selected" : ""; ?>>Female</option>
+                    <option value="other" <?php echo ($gender === "other") ? "selected" : ""; ?>>Other</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="email">Email Address</label>
+                  <input type="email" id="email" name="email" value="<?php echo $email; ?>">
+                </div>
+                <div class="form-field">
+                  <label for="phoneNumber">Phone Number</label>
+                  <input type="tel" id="phoneNumber" name="phoneNumber" value="<?php echo $phoneNumber; ?>">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="idNumber">ID Number</label>
+                  <input type="text" id="idNumber" name="idNumber" value="<?php echo $idNumber; ?>">
+                </div>
+                <div class="form-field">
+                  <label for="bio">Bio</label>
+                  <textarea id="bio" name="bio"><?php echo $bio; ?></textarea>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="submit">Save</button>
+                <button type="button">Discard</button>
+              </div>
+            </form>
           </div>
         </div>
-        <div class="footer">
-            This is the footer content.
-          </div>
       </div>
-      
+
+
+      <footer>
+        <!-- Footer content goes here -->
+        <div class="footer-content">
+
+    <div class="footer-social">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+  <div class="footer-text">
+    &copy; 2023 kezzy chama All rights reserved. | Designed by Kezzy Ngotho
+  </div>
+    </footer>
+   
+    </div>
+
+    <!-- Display the success notification if applicable -->
+   
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <script>
@@ -467,17 +589,10 @@
       toggleSidebarBtn.addEventListener("click", () => {
         sidebar.classList.toggle("hidden");
       });
-      // Get the current date and time
-var currentDate = new Date();
-
-// Format the date and time as desired
-var formattedDateTime = currentDate.toLocaleString();
-var username = "code cove"; // Replace with the actual username
-
-// Set the values in the input fields
-document.getElementById("dateTime").value = formattedDateTime;
-document.getElementById("username").value = username;
-
+      <?php if (isset($notification)): ?>
+        alert("<?php echo $notification; ?>");
+      <?php endif; ?>
+      
     </script>
   </body>
 </html>

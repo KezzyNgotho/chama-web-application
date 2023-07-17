@@ -1,19 +1,4 @@
-<?php
-$servername = "sql205.infinityfree.com"; // Replace with your MySQL server name
-$username = "if0_34576153"; // Replace with your MySQL username
-$password = "O2p634SC8vzOn"; // Replace with your MySQL password
-$database = "if0_34576153_kezzy_chama"; // Replace with your MySQL database name
 
-// Create a connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-echo "Connected successfully";
-?>
 
 
 

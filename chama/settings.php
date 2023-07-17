@@ -87,6 +87,7 @@
 
       .sidebar li {
         margin-bottom: 10px;
+        margin-top :30px;
       }
 
       .sidebar li a {
@@ -290,7 +291,7 @@
       .section2 {
         display: flex;
         justify-content: space-between;
-        margin-top: 20px;
+      
       }
 
       .section2-content {
@@ -372,9 +373,9 @@
           <div class="user-name">John Doe</div>
         </div>
         <ul>
-          <li><a href="deposit.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-  <li><a href="get_feedback.html"><i class="fas fa-comments"></i> Feedback</a></li>
-  <li class="active"><a href="get_help.html"><i class="fas fa-question-circle"></i> Get Help</a></li>
+          <li><a href="deposit.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+  <li><a href="get_feedback.php"><i class="fas fa-comments"></i> Feedback</a></li>
+  <li class="active"><a href="get_help.php"><i class="fas fa-question-circle"></i> Get Help</a></li>
   <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
   <li><a href="#"><i class="fas fa-file-contract"></i> Terms and Conditions</a></li>
         </ul>
@@ -411,82 +412,64 @@
 
         <!-- Card 2: Account Credentials -->
 <div class="card2">
-  <div class="top-bar"><a class="user_profile.html" href="user_profile.html">
+  <div class="top-bar"><a class="user_profile.html" href="settings.php">
     <i class="fas fa-puzzle-piece"></i> Modules
   </a>
   
-  <a class="credentials.html" href="credentials.html">
+  <a class="credentials.html" href="credentials.php">
     <i class="fas fa-users"></i> Chamas
   </a>
   
-  <a class="navigation-link" href="timeline.html">
+  <a class="navigation-link" href="timeline.php">
     <i class="fas fa-cog"></i> Settings
   </a>
   
   </div>
-  <div class="section1">
-    <div class="section1-content">
-     
-    </div>
-  </div>
- <div class="section2">
-    <div class="section2-content">
-      <h3 id="account">Account Details</h3>
-      <div class="form-fields-container">
-        <div class="form-row">
-          <div class="form-field">
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName">
-          </div>
-          <div class="form-field">
-            <label for="surname">Surname</label>
-            <input type="text" id="surname" name="surname">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label for="otherNames">Other Names</label>
-            <input type="text" id="otherNames" name="otherNames">
-          </div>
-          <div class="form-field">
-            <label for="gender">Gender</label>
-            <select id="gender" name="gender">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email">
-          </div>
-          <div class="form-field">
-            <label for="phoneNumber">Phone Number</label>
-            <input type="tel" id="phoneNumber" name="phoneNumber">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label for="idNumber">ID Number</label>
-            <input type="text" id="idNumber" name="idNumber">
-          </div>
-          <div class="form-field">
-            <label for="bio">Bio</label>
-            <textarea id="bio" name="bio"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="form-actions">
-        <button type="submit">Save</button>
-        <button type="button">Discard</button>
-      </div>
-    </div>
+  <div class="section1" style="border-bottom: 1px solid #ccc;">
+  <div class="section1-content">
+    <!-- Section 1 content -->
   </div>
 </div>
-  
-  
+
+<div class="section2" style="display: flex; flex-direction: column; border-bottom: 1px solid #ccc;">
+  <div class="section2-content" style="display: flex; flex-direction: row; align-items: center;">
+    <h3 id="chama" style="margin-right: 10px;">Chama</h3>
+    <p style="margin-right: 190px;margin-left :150px;">Chama Accounts</p>
+    <button type="button" class="enable-option">Enable</button>
+  </div>
+</div>
+
+<div class="section2" style="display: flex; flex-direction: column; border-bottom: 1px solid #ccc;">
+  <div class="section2-content" style="display: flex; flex-direction: row; align-items: center;">
+    <h3 id="goals" style="margin-right: 10px;">Goals</h3>
+    <p style="margin-right: 180px;margin-left :150px;">Set and track financial goals</p>
+    <button type="button" class="enable-option">Enable</button>
+  </div>
+</div>
+
+<div class="section2" style="display: flex; flex-direction: column; border-bottom: 1px solid #ccc;">
+  <div class="section2-content" style="display: flex; flex-direction: row; align-items: center;">
+    <h3 id="loans" style="margin-right: 10px;">Loans</h3>
+    <p style="margin-left: 150px; margin-right:130px;">Apply for loans and manage repayments</p>
+    <button type="button" class="enable-option">Enable</button>
+  </div>
+</div>
+
+<div class="section2" style="display: flex; flex-direction: column; border-bottom: 1px solid #ccc;">
+  <div class="section2-content" style="display: flex; flex-direction: row; align-items: center;">
+    <h3 id="merry-go-round" style="margin-right: 10px;">Merry Go Round</h3>
+    <p style="margin-right: 100px;margin-left: 150px;">Participate in a merry-go-round savings scheme</p>
+    <button type="button" class="enable-option">Enable</button>
+  </div>
+ 
+</div>
+<div class="section2" style="display: flex; flex-direction: column; border-bottom: 1px solid #ccc;">
+  <div class="section2-content" style="display: flex; flex-direction: row; align-items: center;">
+    <h3 id="merry-go-round" style="margin-right: 10px;">Meetings</h3>
+    <p style="margin-right: 100px;margin-left: 150px;">manage frequency & minutes</p>
+    <button type="button" class="enable-option">Enable</button>
+  </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <script>
       const toggleSidebarBtn = document.querySelector(".toggle-sidebar-btn");

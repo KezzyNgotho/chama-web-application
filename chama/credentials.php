@@ -11,7 +11,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color:  #1B6B93;
+        background-color: #1B6B93;
         padding: 10px;
       }
 
@@ -158,6 +158,9 @@
         transition: background-color 0.3s ease;
       }
       
+      .card1 .section2-content:hover {
+        background-color: whitesmoke;
+      }
       
       .card1 .section2-content .icon {
         margin-right: 5px;
@@ -222,7 +225,7 @@
         justify-content: center; /* Center align the form fields */
        
         margin-right: 50px;
-        width: 650px; /* Increase the width of the form fields container */
+        width: 700px; /* Increase the width of the form fields container */
       }
       
       .card2 .form-row {
@@ -369,14 +372,14 @@
           <div class="user-profile">
             <img src="img/people.png" alt="User Profile" />
           </div>
-          <div class="user-name">John Doe</div>
+          <div class="user-name">Kezzy Ngotho</div>
         </div>
         <ul>
-          <li><a href="deposit.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-  <li><a href="get_feedback.html"><i class="fas fa-comments"></i> Feedback</a></li>
-  <li class="active"><a href="get_help.html"><i class="fas fa-question-circle"></i> Get Help</a></li>
-  <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
-  <li><a href="#"><i class="fas fa-file-contract"></i> Terms and Conditions</a></li>
+            <li><a href="deposit.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="get_feedback.php"><i class="fas fa-comments"></i> Feedback</a></li>
+            <li class="active"><a href="get_help.php"><i class="fas fa-question-circle"></i> Get Help</a></li>
+            <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="#"><i class="fas fa-file-contract"></i> Terms and Conditions</a></li>
         </ul>
       </div>
 
@@ -408,71 +411,47 @@
         <!-- Card 2: Account Credentials -->
 <div class="card2">
   <div class="top-bar">
-    <a class="user_profile.html" href="user_profile.html">Account</a>
-    <a class="credentials.html" href="credentials.html">Credentials</a>
-    <a class="navigation-link" href="timeline.html">Timeline</a>
+    <a class="user_profile.html" href="user_profile.php">Account</a>
+    <a class="credentials.html" href="credentials.php">Credentials</a>
+    <a class="navigation-link" href="timeline.php">Timeline</a>
   </div>
   <div class="section1">
     <div class="section1-content">
      
     </div>
   </div>
- <div class="section2">
+  <div class="section2">
+
+
+
     <div class="section2-content">
-      <h3 id="account">Account Details</h3>
+      <h3 id="account">Account Credentials</h3>
       <div class="form-fields-container">
         <div class="form-row">
           <div class="form-field">
-            <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName">
-          </div>
-          <div class="form-field">
-            <label for="surname">Surname</label>
-            <input type="text" id="surname" name="surname">
+            <label for="oldPassword">Old Password</label>
+            <input type="password" id="oldPassword" name="oldPassword">
           </div>
         </div>
         <div class="form-row">
           <div class="form-field">
-            <label for="otherNames">Other Names</label>
-            <input type="text" id="otherNames" name="otherNames">
-          </div>
-          <div class="form-field">
-            <label for="gender">Gender</label>
-            <select id="gender" name="gender">
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" name="newPassword">
           </div>
         </div>
         <div class="form-row">
           <div class="form-field">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email">
-          </div>
-          <div class="form-field">
-            <label for="phoneNumber">Phone Number</label>
-            <input type="tel" id="phoneNumber" name="phoneNumber">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label for="idNumber">ID Number</label>
-            <input type="text" id="idNumber" name="idNumber">
-          </div>
-          <div class="form-field">
-            <label for="bio">Bio</label>
-            <textarea id="bio" name="bio"></textarea>
+            <label for="confirmNewPassword">Confirm New Password</label>
+            <input type="password" id="confirmNewPassword" name="confirmNewPassword">
           </div>
         </div>
       </div>
       <div class="form-actions">
-        <button type="submit">Save</button>
-        <button type="button">Discard</button>
+        <button class="cancel-button" type="button">Cancel</button>
+        <button class="confirm-button" type="submit">Change Confirm</button>
       </div>
     </div>
   </div>
-</div>
   
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
@@ -483,7 +462,6 @@
       toggleSidebarBtn.addEventListener("click", () => {
         sidebar.classList.toggle("hidden");
       });
-      
     </script>
   </body>
 </html>

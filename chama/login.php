@@ -1,58 +1,74 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST["email"];
-    $password = $_POST['password'];
+// Declaring and hoisting the variables
+// Database configuration
+$servername = "sql205.infinityfree.com";
+$username = "if0_34576153";
+$db_password = "O2p634SC8vzOn";
+$dbname = "if0_34576153_kezzy_chama";
 
-    // Database configuration
-    $servername = "sql205.infinityfree.com";
-    $username = "if0_34576153";
-    $db_password = "O2p634SC8vzOn";
-    $dbname = "if0_34576153_kezzy_chama";
+// Create a database connection
+$conn = new mysqli($servername, $username, $db_password, $dbname);
 
-    // Create a database connection
-    $conn = new mysqli($servername, $username, $db_password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+// User login
+if (isset($_POST['login_user'])) {
+    // Data sanitization to prevent SQL injection
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    // Error message if the input field is left blank
+    $errors = array(); // Initialize an empty array for errors
+
+    if (empty($email)) {
+        $errors[] = "Email is required";
+    }
+    if (empty($password)) {
+        $errors[] = "Password is required";
     }
 
-    // Prepare the SQL statement
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Checking for the errors
+    if (count($errors) == 0) {
+        // Password matching
+       // $password = md5($password);
 
-    if ($result->num_rows > 0) {
-        // User exists
-        $row = $result->fetch_assoc();
-        $storedPassword = $row['password'];
-        if (password_verify($password, $storedPassword)) {
-            // Password matches
-            header("Location: deposit.php");
-            exit;
+        $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+        $results = mysqli_query($conn, $query);
+        if (mysqli_num_rows($results) == 1) {
+            // Storing user email in session variable in cookies section
+            $_SESSION['user_email'] = $email;
+
+            // Set a cookie to remember the user's email
+            setcookie('user_email', $email, time() + (86400 * 30), '/'); // Cookie expires in 30 days
+
+            // After successful login
+            $_SESSION['success'] = "You have logged in!";
+
+            // Redirect to the desired page with the success notification
+            header('location: deposit.php?success=1');
+           exit();
+           //echo "<script>alert(".$_SESSION['user_email'].")</script>";
         } else {
-            // Invalid password
-            echo "<script>alert('Invalid password!');</script>";
+            // If the email and password don't match
+            $errors[] = "Email or password is incorrect";
         }
-    } else {
-        // User does not exist
-        echo "<script>alert('Email does not exist!');</script>";
     }
 
-    $stmt->close();
-
-    // Close the database connection
-    $conn->close();
+    // Display errors to the user
+    if (count($errors) > 0) {
+        echo "<div class='error'>";
+        foreach ($errors as $error) {
+            echo "<p>$error</p>";
+        }
+        echo "</div>";
+    }
 }
 ?>
-
-
-
 
 
 
@@ -152,9 +168,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <a href="404.html" class="dropdown-item">404 Page</a>
                     </div>
                 </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                <a href="contact.php" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="login.html" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="login.php" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -184,7 +200,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="login-form">
                         <h4 class="login-title">LOGIN</h4>
                         <div class="row">
-                        <form id="contactForm" method="POST" action="login.php" class="log-form">
+                        <form id="contactForm" method="POST"  class="log-form">
+
+
 
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                 <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" required data-error="Please enter your email">
@@ -203,7 +221,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <button type="submit" id="submit" class="login-btn">    <a href="deposit.php"> Login</a></button>
+                                    <button type="submit" id="submit" class="login-btn" name="login_user">Login</button>
                                     <div id="msgSubmit" class="h3 text-center hidden"></div> 
                                     <div class="clearfix"></div>
                                 </div>

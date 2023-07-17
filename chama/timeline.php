@@ -178,7 +178,19 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         margin-left: 20px;
         border-color: #1B6B93;
+        position: relative;
       }
+     
+      
+      .footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #f2f2f2;
+        padding: 10px;
+      }
+      
 
 
       .card2 .top-bar {
@@ -215,7 +227,7 @@
         align-items: center; /* Center align the forms */
         margin-top: 0;
       
-        background-color: white;
+        background-color:white;
         border-radius: 1px;
       }
       
@@ -225,7 +237,7 @@
         justify-content: center; /* Center align the form fields */
        
         margin-right: 50px;
-        width: 700px; /* Increase the width of the form fields container */
+        width: 600px; /* Increase the width of the form fields container */
       }
       
       .card2 .form-row {
@@ -372,12 +384,12 @@
           <div class="user-profile">
             <img src="img/people.png" alt="User Profile" />
           </div>
-          <div class="user-name">Kezzy Ngotho</div>
+          <div class="user-name">John Doe</div>
         </div>
         <ul>
-            <li><a href="deposit.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-            <li><a href="get_feedback.html"><i class="fas fa-comments"></i> Feedback</a></li>
-            <li class="active"><a href="get_help.html"><i class="fas fa-question-circle"></i> Get Help</a></li>
+            <li><a href="deposit.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="get_feedback.php"><i class="fas fa-comments"></i> Feedback</a></li>
+            <li class="active"><a href="get_help.php"><i class="fas fa-question-circle"></i> Get Help</a></li>
             <li><a href="#"><i class="fas fa-info-circle"></i> About</a></li>
             <li><a href="#"><i class="fas fa-file-contract"></i> Terms and Conditions</a></li>
         </ul>
@@ -394,7 +406,7 @@
               <!-- Profile name and member number -->
               <div class="user-profile">
                 <img src="img/people.png" alt="User Profile" />
-                <div class="user-name">Code cove</div>
+                <div class="user-name">John Doe</div>
               </div>
               <div class="member-number">Member Number: 123456</div>
             </div>
@@ -411,9 +423,9 @@
         <!-- Card 2: Account Credentials -->
 <div class="card2">
   <div class="top-bar">
-    <a class="user_profile.html" href="user_profile.html">Account</a>
-    <a class="credentials.html" href="credentials.html">Credentials</a>
-    <a class="navigation-link" href="timeline.html">Timeline</a>
+    <a class="user_profile.html" href="user_profile.php">Account</a>
+    <a class="credentials.html" href="credentials.php">Credentials</a>
+    <a class="navigation-link" href="timeline.php">Timeline</a>
   </div>
   <div class="section1">
     <div class="section1-content">
@@ -423,36 +435,29 @@
   <div class="section2">
 
 
-
-    <div class="section2-content">
-      <h3 id="account">Account Credentials</h3>
-      <div class="form-fields-container">
-        <div class="form-row">
-          <div class="form-field">
-            <label for="oldPassword">Old Password</label>
-            <input type="password" id="oldPassword" name="oldPassword">
+    
+    <div class="section2">
+        <div class="section2-content">
+          <h3 id="account">Account Information</h3>
+          <div class="form-fields-container">
+            <div class="form-row">
+              <div class="form-field">
+                <label for="dateTime">Date and Time</label>
+                <input type="text" id="dateTime" name="dateTime" readonly>
+              </div>
+              <div class="form-field">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" readonly>
+              </div>
+            </div>
+            
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label for="newPassword">New Password</label>
-            <input type="password" id="newPassword" name="newPassword">
+        <div class="footer">
+            This is the footer content.
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label for="confirmNewPassword">Confirm New Password</label>
-            <input type="password" id="confirmNewPassword" name="confirmNewPassword">
-          </div>
-        </div>
       </div>
-      <div class="form-actions">
-        <button class="cancel-button" type="button">Cancel</button>
-        <button class="confirm-button" type="submit">Change Confirm</button>
-      </div>
-    </div>
-  </div>
-  
+      
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <script>
@@ -462,6 +467,17 @@
       toggleSidebarBtn.addEventListener("click", () => {
         sidebar.classList.toggle("hidden");
       });
+      // Get the current date and time
+var currentDate = new Date();
+
+// Format the date and time as desired
+var formattedDateTime = currentDate.toLocaleString();
+var username = "code cove"; // Replace with the actual username
+
+// Set the values in the input fields
+document.getElementById("dateTime").value = formattedDateTime;
+document.getElementById("username").value = username;
+
     </script>
   </body>
 </html>
